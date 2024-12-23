@@ -1,8 +1,24 @@
+//Function to convert seconds into 24 hour time formart.
+mod time;
+use std::io;
+
 fn main() {
-    let large_number1: u64 = 0xffff_fffe; // Changed to u64
-    let large_number2: u64 = 3000000000; // Changed to u64
-    println!("Large Number 1: {}", large_number1);
-    println!("Large Number 2: {}", large_number2);
-    let result = large_number1 * large_number2;
-    println!("Mul. Result: {}", result);
+    let mut input = String::new();
+
+    println!("Enter the time of the day in seconds(0 to 86,399):");
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read line");
+
+    let total_seconds: u32 = input
+        .trim()
+        .parse()
+        .expect("Input number only without any sign!");
+
+    if total_seconds > 86399 {
+        panic!("Your input should be between 0 to 86,399 ");
+    }
+
+    let (hours, minutes, seconds) = time::convert_seconds(total_seconds);
+    println!("Time: {:02}:{:02}:{:02}", hours, minutes, seconds);
 }
