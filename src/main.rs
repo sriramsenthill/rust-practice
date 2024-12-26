@@ -1,4 +1,6 @@
 // main.rs
+mod ownership_and_borrowing;
+mod structs;
 mod time;
 use std::io;
 
@@ -13,6 +15,29 @@ fn main() {
             std::process::exit(1);
         }
     }
+
+    ownership_and_borrowing::ownership_and_borrowing();
+
+    // Using the constructor
+    let person1 = structs::User::new(
+        String::from("Bob"),
+        25,
+        String::from("bob123"),
+        String::from("bob@example.com"),
+    );
+
+    // Using the default person creator
+    let person2 = structs::User::create_default_person();
+
+    // Printing details
+    println!("Person 1:");
+    person1.print_details();
+
+    println!("\nPerson 2:");
+    person2.print_details();
+
+    // You can also print the struct directly using Debug trait
+    println!("\nPerson 1 debug print: {:?}", person1);
 }
 
 pub fn get_user_input() -> Result<u32, String> {
